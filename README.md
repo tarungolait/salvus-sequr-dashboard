@@ -21,7 +21,7 @@ The Salvus Sequr Dashboard is a comprehensive web-based application designed to 
 
 1. Clone the repository:
    ```
-   git clone <repository_url>
+   git clone <https://github.com/tarungolait/salvus-sequr-dashboard>
    ```
 2. Navigate to the project directory:
    ```
@@ -52,10 +52,6 @@ Special thanks to the developers and resources that have contributed to this pro
 - [React ChartJS 2](http://reactchartjs.github.io/react-chartjs-2/#/)
 - [ChromaJS](https://gka.github.io/chroma.js/)
 
-## Contact
 
-For questions or inquiries about the Salvus Sequr Dashboard, please contact [Your Name] at [your_email@example.com].
-
----
 
 Feel free to customize this README file with additional information or sections specific to your project's requirements.
