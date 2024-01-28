@@ -8,6 +8,7 @@ import { Ecommerce, Line, Area, Bar, Pie, Financial, ColorMapping, Pyramid, Stac
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
+import Barcode from './pages/Charts/Barcode';
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -77,6 +78,7 @@ const App = () => {
                 <Route path="/color-mapping" element={<ColorMapping />} />
                 <Route path="/pyramid" element={<Pyramid />} />
                 <Route path="/stacked" element={<Stacked />} />
+                <Route path="/barcode" element={<Barcode />} />
 
               </Routes>
             </div>

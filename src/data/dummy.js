@@ -522,6 +522,11 @@ export const links = [
     title: 'Charts',
     links: [
       {
+        name: 'Barcode',
+        icon: <AiOutlineStock />,
+      },
+
+      {
         name: 'line',
         icon: <AiOutlineStock />,
       },
