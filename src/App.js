@@ -4,7 +4,8 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { Ecommerce, Line, Area, Bar, Pie, Financial, ColorMapping, Pyramid, Stacked, Salvus } from './pages';
+import Salvus from './pages/Salvus'; // Import Salvus component
+
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';

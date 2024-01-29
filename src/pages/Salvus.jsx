@@ -15,7 +15,7 @@ const DropDown = ({ currentMode }) => (
   </div>
 );
 
-const Ecommerce = () => {
+const Salvus = () => {
   const { currentColor, currentMode } = useStateContext();
 
   return (
@@ -330,4 +330,4 @@ const Ecommerce = () => {
   );
 };
 
-export default Ecommerce;
+export default Salvus;
