@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
-import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
+import { FiPrinter, FiEdit, FiTrash, FiBarChart, FiCreditCard, FiStar, FiShoppingCart,FiHome,FiPlusSquare,FiUser } from 'react-icons/fi';
 import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
@@ -475,7 +475,7 @@ export const links = [
     links: [
       {
         name: 'Salvus',
-        icon: <FiShoppingBag />,
+        icon: <FiHome />,
       },
     ],
   },
@@ -523,25 +523,25 @@ export const links = [
     links: [
       {
         name: 'add-new-product',
-        icon: <AiOutlineStock />,
+        icon: <FiPlusSquare />,
       },
 
       {
         name: 'data-entry',
-        icon: <AiOutlineStock />,
+        icon: <FiEdit />,
       },
 
       {
         name: 'print',
-        icon: <AiOutlineStock />,
+        icon: <FiPrinter />,
       },
       {
         name: 'delete',
-        icon: <AiOutlineBarChart />,
+        icon: <FiTrash />,
       },
       {
         name: 'User',
-        icon: <AiOutlineAreaChart />,
+        icon: <FiUser/>,
       },
 
       // {

@@ -71,17 +71,15 @@ const DataEntry = () => {
               <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="delete-mac-id" type="text" placeholder="Enter MAC ID to delete" />
             </div>
           </div>
-      <div className="md:flex md:items-center mb-6">
-    <div className="md:w-1/3 flex flex-row">
-        <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-            Submit
-        </button>
-        <button className="ml-2 shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-            Delete
-        </button>
-    </div>
-</div>
-
+          <div className="md:flex md:items-center mb-6">
+            <div className="w-full"></div> 
+            <div className="flex justify-center">
+              <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                Submit
+              </button>
+            </div>
+            <div className="w-full"></div> 
+          </div>
         </form>
       </div>
     </div>
