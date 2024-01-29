@@ -474,7 +474,7 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'ecommerce',
+        name: 'Salvus',
         icon: <FiShoppingBag />,
       },
     ],
@@ -522,43 +522,52 @@ export const links = [
     title: 'Charts',
     links: [
       {
-        name: 'Barcode',
+        name: 'add-new-product',
         icon: <AiOutlineStock />,
       },
 
       {
-        name: 'line',
+        name: 'data-entry',
+        icon: <AiOutlineStock />,
+      },
+
+      {
+        name: 'print',
         icon: <AiOutlineStock />,
       },
       {
-        name: 'area',
+        name: 'delete',
+        icon: <AiOutlineBarChart />,
+      },
+      {
+        name: 'User',
         icon: <AiOutlineAreaChart />,
       },
 
-      {
-        name: 'bar',
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        name: 'pie',
-        icon: <FiPieChart />,
-      },
-      {
-        name: 'financial',
-        icon: <RiStockLine />,
-      },
-      {
-        name: 'color-mapping',
-        icon: <BsBarChart />,
-      },
-      {
-        name: 'pyramid',
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        name: 'stacked',
-        icon: <AiOutlineBarChart />,
-      },
+      // {
+      //   name: 'bar',
+      //   icon: <AiOutlineBarChart />,
+      // },
+      // {
+      //   name: 'pie',
+      //   icon: <FiPieChart />,
+      // },
+      // {
+      //   name: 'financial',
+      //   icon: <RiStockLine />,
+      // },
+      // {
+      //   name: 'color-mapping',
+      //   icon: <BsBarChart />,
+      // },
+      // {
+      //   name: 'pyramid',
+      //   icon: <GiLouvrePyramid />,
+      // },
+      // {
+      //   name: 'stacked',
+      //   icon: <AiOutlineBarChart />,
+      // },
     ],
   },
 ];

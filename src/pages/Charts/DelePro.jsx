@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Barcode = () => {
+const DelePro = () => {
   return (
     <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
       <h2 className="text-lg font-bold mb-4">Product Details</h2>
@@ -88,4 +88,4 @@ const Barcode = () => {
   );
 };
 
-export default Barcode;
+export default DelePro;
