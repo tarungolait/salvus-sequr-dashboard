@@ -76,7 +76,6 @@ const App = () => {
                 <Route path="/" element={<Salvus />} />
                 <Route path="/salvus" element={<Salvus />} />
 
-<<<<<<< HEAD
                 {/* Other routes */}
                 <Route path="/barcode" element={<Barcode />} />
                 <Route path="/Add New Products" element={<Newproduct />} />
@@ -88,17 +87,6 @@ const App = () => {
                 <Route path="/Apps And Website" element={<Appandwebsites />} />
                 <Route path="/Fraud QR and Numbers" element={<Fraudqrandnumbers />} />
                 <Route path="/New User" element={<AddNewUser />} />
-=======
-                {/* charts  */}
-                
-                <Route path="/add-new-product" element={<Product />} />
-                <Route path="/data 123entry" element={<DataEntry />} />
-                <Route path="/print" element={<Print />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/delete" element={<DelePro />} />
-                
-
->>>>>>> 245ea08b17b82fd0064eb5d53fa84602a47c7ac1
               </Routes>
             </div>
             <Footer />
