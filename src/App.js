@@ -79,7 +79,7 @@ const App = () => {
                 {/* charts  */}
                 
                 <Route path="/add-new-product" element={<Product />} />
-                <Route path="/data entry" element={<DataEntry />} />
+                <Route path="/data 123entry" element={<DataEntry />} />
                 <Route path="/print" element={<Print />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/delete" element={<DelePro />} />
