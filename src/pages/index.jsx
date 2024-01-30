@@ -1,3 +1,9 @@
-export { default as Salvus} from './Salvus';
-
-
+export { default as Barcode } from './Charts/Barcode';
+export { default as Newproduct } from './Charts/Newproduct';
+export { default as Delete } from './Charts/Delete';
+export { default as Bankcontacts } from './Charts/Bankcontacts';
+export { default as Print } from './Charts/Print';
+export { default as Embassy } from './Charts/Embassy';
+export { default as Cybercops } from './Charts/Cybercops';
+export { default as Appandwebsites } from './Charts/Appandwebsites';
+export { default as Salvus } from './Salvus';

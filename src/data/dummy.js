@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
-import { FiPrinter, FiEdit, FiTrash, FiBarChart, FiCreditCard, FiStar, FiShoppingCart,FiHome,FiPlusSquare,FiUser } from 'react-icons/fi';
+import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart,FiHome,FiBriefcase,FiPhone,FiShield,FiPlusSquare,FiGlobe,FiAlertTriangle,FiPrinter,FiTrash,FiUserPlus } from 'react-icons/fi';
 import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
@@ -519,43 +519,55 @@ export const links = [
   //   ],
   // },
   {
-    title: 'Applications',
+    title: 'Services',
     links: [
+
       {
-        name: 'add-new-product',
+        name: 'Add New Products',
         icon: <FiPlusSquare />,
       },
-
       {
-        name: 'data-entry',
-        icon: <FiEdit />,
+        name: 'Barcode',
+        icon: <FiBarChart />,
+      },
+
+     
+      {
+        name: 'Bank Contacts',
+        icon: <FiBriefcase />,
       },
 
       {
-        name: 'print',
+        name: 'Embassies Contacts',
+        icon: <FiPhone />,
+      },
+
+      {
+        name: 'Cyber Police Contacts',
+        icon: <FiShield />,
+      },
+
+      {
+        name: 'Apps and Website',
+        icon: <FiGlobe/>,
+      },
+
+      {
+        name: 'Fraud QR and Numbers',
+        icon: <FiAlertTriangle />,
+      },
+      {
+        name: 'Print',
         icon: <FiPrinter />,
       },
       {
-        name: 'delete',
+        name: 'Delete',
         icon: <FiTrash />,
       },
       {
-        name: 'User',
-        icon: <FiUser/>,
+        name: 'New User',
+        icon: <FiUserPlus />,
       },
-
-      // {
-      //   name: 'bar',
-      //   icon: <AiOutlineBarChart />,
-      // },
-      // {
-      //   name: 'pie',
-      //   icon: <FiPieChart />,
-      // },
-      // {
-      //   name: 'financial',
-      //   icon: <RiStockLine />,
-      // },
       // {
       //   name: 'color-mapping',
       //   icon: <BsBarChart />,

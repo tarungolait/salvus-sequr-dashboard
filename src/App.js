@@ -4,18 +4,19 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import Salvus from './pages/Salvus'; // Import Salvus component
-
-
-
-import './App.css';
+import { Salvus } from './pages';
 
 import { useStateContext } from './contexts/ContextProvider';
-import Product from './pages/Charts/Product';
-import DataEntry from './pages/Charts/DataEntry';
+import Barcode from './pages/Charts/Barcode';
+import Newproduct from './pages/Charts/Newproduct';
+import Delete from './pages/Charts/Delete';
+import Bankcontacts from './pages/Charts/Bankcontacts';
 import Print from './pages/Charts/Print';
-import User from './pages/Charts/User';
-import DelePro from './pages/Charts/DelePro';
+import Embassy from './pages/Charts/Embassy';
+import Cybercops from './pages/Charts/Cybercops';
+import Appandwebsites from './pages/Charts/Appandwebsites';
+import Fraudqrandnumbers from './pages/Charts/Fraudqrandnumbers';
+import AddNewUser from './pages/Charts/Newuser';
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -46,7 +47,6 @@ const App = () => {
               >
                 <FiSettings />
               </button>
-
             </TooltipComponent>
           </div>
           {activeMenu ? (
@@ -76,15 +76,17 @@ const App = () => {
                 <Route path="/" element={<Salvus />} />
                 <Route path="/salvus" element={<Salvus />} />
 
-                {/* charts  */}
-                
-                <Route path="/add-new-product" element={<Product />} />
-                <Route path="/data-entry" element={<DataEntry />} />
-                <Route path="/print" element={<Print />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/delete" element={<DelePro />} />
-                
-
+                {/* Other routes */}
+                <Route path="/barcode" element={<Barcode />} />
+                <Route path="/Add New Products" element={<Newproduct />} />
+                <Route path="/Delete" element={<Delete />} />
+                <Route path="/Bank Contacts" element={<Bankcontacts />} />
+                <Route path="/Print" element={<Print />} />
+                <Route path="/Embassies Contacts" element={<Embassy />} />
+                <Route path="/Cyber Police Contacts" element={<Cybercops />} />
+                <Route path="/Apps And Website" element={<Appandwebsites />} />
+                <Route path="/Fraud QR and Numbers" element={<Fraudqrandnumbers />} />
+                <Route path="/New User" element={<AddNewUser />} />
               </Routes>
             </div>
             <Footer />
