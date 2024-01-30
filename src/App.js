@@ -6,6 +6,8 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
 import Salvus from './pages/Salvus'; // Import Salvus component
 
+
+
 import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
