@@ -36,18 +36,19 @@ def add_data_entry():
         data = request.json
         with psycopg2.connect(**db_config) as connection:
             with connection.cursor() as cursor:
-                postgres_insert_query = """INSERT INTO data_entry (barcodeno, wallet_type, walletcolor, manufacturingdate, batchnum, countrycode, qrcode, blemacid, version, barcode_location, qrcode_location) 
-                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Updated query to include barcode_location and qrcode_location
+                postgres_insert_query = """INSERT INTO data_entry (category, type, color, macId, qrCode, barcodeNo, version, batchNumber, countryCode, manufacturingDate, barcode_location, qrcode_location) 
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Updated query to match the frontend form fields
                 record_to_insert = (
-                    data['barcodeno'],
-                    data['wallet_type'],
-                    data['walletcolor'],
-                    data['manufacturingdate'],
-                    data['batchnum'],
-                    data['countrycode'],
-                    data['qrcode'],
-                    data['blemacid'],
+                    data['category'],
+                    data['type'],
+                    data['color'],
+                    data['macId'],
+                    data['qrCode'],
+                    data['barcodeNo'],
                     data['version'],
+                    data['batchNumber'],
+                    data['countryCode'],
+                    data['manufacturingDate'],
                     None,  # Placeholder for barcode_location
                     None   # Placeholder for qrcode_location
                 )
@@ -55,13 +56,13 @@ def add_data_entry():
                 connection.commit()
                 count_records = cursor.rowcount
 
-        qrcode_url, barcode_url = generate_codes(data['qrcode'], data['barcodeno'], data['version'], data['wallet_type'], data['blemacid'])
+        qrcode_url, barcode_url = generate_codes(data['qrCode'], data['barcodeNo'], data['version'], data['type'], data['macId'])
 
         # Update the database with barcode and qrcode locations
         with psycopg2.connect(**db_config) as connection:
             with connection.cursor() as cursor:
-                update_query = """UPDATE data_entry SET barcode_location = %s, qrcode_location = %s WHERE barcodeno = %s"""
-                cursor.execute(update_query, (barcode_url, qrcode_url, data['barcodeno']))
+                update_query = """UPDATE data_entry SET barcode_location = %s, qrcode_location = %s WHERE barcodeNo = %s"""
+                cursor.execute(update_query, (barcode_url, qrcode_url, data['barcodeNo']))
                 connection.commit()
 
         return jsonify({'message': f'{count_records} Record(s) inserted successfully', 'qrcode_url': qrcode_url, 'barcode_url': barcode_url})
@@ -70,7 +71,7 @@ def add_data_entry():
         return jsonify({'error': str(error)})
 
 def generate_codes(qrcode_data, barcode_data, version, wallet_type, blemacid):
-    encrypted_data = encrypt_data(qrcode_data, barcode_data, version, wallet_type, blemacid)
+    encrypted_data = encrypt_data(qrcode_data, blemacid, barcode_data, version, wallet_type)
     qrcode_url = generate_qrcode(encrypted_data, barcode_data)
     barcode_url = generate_barcode(barcode_data, barcode_data)
     return qrcode_url, barcode_url

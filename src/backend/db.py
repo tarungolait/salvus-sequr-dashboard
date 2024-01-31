@@ -17,18 +17,19 @@ def create_table():
 
         # SQL statement to create the data_entry table
         create_table_query = '''CREATE TABLE IF NOT EXISTS data_entry (
-            id SERIAL PRIMARY KEY,
-            barcodeno VARCHAR(255),
-            wallet_type VARCHAR(255),
-            walletcolor VARCHAR(255),
-            manufacturingdate DATE,
-            batchnum VARCHAR(255),
-            countrycode VARCHAR(255),
-            qrcode VARCHAR(255),
-            blemacid VARCHAR(255),
-            version VARCHAR(255),
-            barcode_location VARCHAR(255),
-            qrcode_location VARCHAR(255)
+          id SERIAL PRIMARY KEY,
+    category VARCHAR(255),
+    type VARCHAR(255),
+    color VARCHAR(255),
+    macId VARCHAR(255),
+    qrCode TEXT,
+    barcodeNo VARCHAR(255),
+    version VARCHAR(255),
+    batchNumber VARCHAR(255),
+    countryCode VARCHAR(255),
+    manufacturingDate DATE,
+    barcode_location TEXT,
+    qrcode_location TEXT
         )'''
 
         # Execute the CREATE TABLE command

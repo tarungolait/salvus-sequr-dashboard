@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 
 const Barcode = () => {
   const [formData, setFormData] = useState({
-    blemacid: '',
-    wallet_type: '',
-    walletcolor: '',
-    manufacturingdate: new Date().toISOString().split("T")[0], // Initializing with current date
-    batchnum: '012003202102',
-    countrycode: '890',
-    qrcode: '',
-    barcodeno: '',
+    category: '',
+    type: '',
+    color: '',
+    macId: '',
+    qrCode: '',
+    barcodeNo: '',
     version: '',
+    batchNumber: '',
+    countryCode: '',
+    manufacturingDate: new Date().toISOString().split("T")[0], // Initializing with current date
   });
 
   const [notification, setNotification] = useState(null);
@@ -50,6 +51,7 @@ const Barcode = () => {
       setNotification(null);
     }, 3000);
   };
+
   return (
     <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
       <h2 className="text-lg font-bold mb-4">Product Details</h2>
@@ -59,90 +61,90 @@ const Barcode = () => {
             <tbody>
               <tr>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="blemacid">
-                    Category
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="category">
+                    CATEGORY
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="blemacid"
+                    id="category"
                     type="text"
-                    placeholder="Select"
-                    name="blemacid"
-                    value={formData.blemacid}
+                    placeholder="Enter Category"
+                    name="category"
+                    value={formData.category}
                     onChange={handleChange}
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="wallet_type">
-                    Type
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="type">
+                    TYPE
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="wallet_type"
+                    id="type"
                     type="text"
-                    placeholder="Select Product Type"
-                    name="wallet_type"
-                    value={formData.wallet_type}
+                    placeholder="Enter Type"
+                    name="type"
+                    value={formData.type}
                     onChange={handleChange}
                   />
                 </td>
               </tr>
               <tr>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="walletcolor">
-                    Color
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="color">
+                    COLOR
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="walletcolor"
+                    id="color"
                     type="text"
-                    placeholder="Select Color"
-                    name="walletcolor"
-                    value={formData.walletcolor}
+                    placeholder="Enter Color"
+                    name="color"
+                    value={formData.color}
                     onChange={handleChange}
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="manufacturingdate">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="macId">
                     MAC ID
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="manufacturingdate"
+                    id="macId"
                     type="text"
-                    placeholder="Enter MacID"
-                    name="manufacturingdate"
-                    value={formData.manufacturingdate}
+                    placeholder="Enter Mac ID"
+                    name="macId"
+                    value={formData.macId}
                     onChange={handleChange}
                   />
                 </td>
               </tr>
               <tr>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="qrcode">
-                    QR Code
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="qrCode">
+                    QR CODE
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="qrcode"
+                    id="qrCode"
                     type="text"
                     placeholder="Enter QR Code"
-                    name="qrcode"
-                    value={formData.qrcode}
+                    name="qrCode"
+                    value={formData.qrCode}
                     onChange={handleChange}
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="barcodeno">
-                    Barcode No
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="barcodeNo">
+                    BARCODE NO
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="barcodeno"
+                    id="barcodeNo"
                     type="text"
                     placeholder="Enter Barcode No"
-                    name="barcodeno"
-                    value={formData.barcodeno}
+                    name="barcodeNo"
+                    value={formData.barcodeNo}
                     onChange={handleChange}
                   />
                 </td>
@@ -150,7 +152,7 @@ const Barcode = () => {
               <tr>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="version">
-                    Version
+                    VERSION
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -163,46 +165,46 @@ const Barcode = () => {
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="batchnum">
-                    Batch Number
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="batchNumber">
+                    BATCH NUMBER
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="batchnum"
+                    id="batchNumber"
                     type="text"
                     placeholder="Enter Batch Number"
-                    name="batchnum"
-                    value={formData.batchnum}
+                    name="batchNumber"
+                    value={formData.batchNumber}
                     onChange={handleChange}
                   />
                 </td>
               </tr>
               <tr>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="countrycode">
-                    Country Code
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="countryCode">
+                    COUNTRY CODE
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="countrycode"
+                    id="countryCode"
                     type="text"
                     placeholder="Enter Country Code"
-                    name="countrycode"
-                    value={formData.countrycode}
+                    name="countryCode"
+                    value={formData.countryCode}
                     onChange={handleChange}
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="manufacturingdate">
-                    Manufacturing Date
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="manufacturingDate">
+                    MANUFACTURING DATE
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="manufacturingdate"
+                    id="manufacturingDate"
                     type="text"
-                    placeholder="Enter MacID"
-                    name="manufacturingdate"
-                    value={formData.manufacturingdate}
+                    placeholder="Enter Manufacturing Date"
+                    name="manufacturingDate"
+                    value={formData.manufacturingDate}
                     onChange={handleChange}
                   />
                 </td>
@@ -213,7 +215,7 @@ const Barcode = () => {
             <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
               Submit
             </button>
-            </div>
+          </div>
           {notification && (
             <div className={`notification ${notification.type}`}>
               {notification.message}
