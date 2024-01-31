@@ -56,7 +56,8 @@ def add_data_entry():
                 connection.commit()
                 count_records = cursor.rowcount
 
-        qrcode_url, barcode_url = generate_codes(data['qrCode'], data['barcodeNo'], data['version'], data['type'], data['macId'])
+        encrypted_data = encrypt_data(data['qrCode'], data['macId'], data['barcodeNo'], data['version'], data['type'])
+        qrcode_url, barcode_url = generate_codes(encrypted_data, data['barcodeNo'], data['version'], data['type'], data['macId'])
 
         # Update the database with barcode and qrcode locations
         with psycopg2.connect(**db_config) as connection:
@@ -70,14 +71,13 @@ def add_data_entry():
     except Exception as error:
         return jsonify({'error': str(error)})
 
-def generate_codes(qrcode_data, barcode_data, version, wallet_type, blemacid):
-    encrypted_data = encrypt_data(qrcode_data, blemacid, barcode_data, version, wallet_type)
-    qrcode_url = generate_qrcode(encrypted_data, barcode_data)
-    barcode_url = generate_barcode(barcode_data, barcode_data)
+def generate_codes(qrcode_data, barcode_data, version, item_type, mac_id):
+    qrcode_url = generate_qrcode(qrcode_data, barcode_data)
+    barcode_url = generate_barcode(barcode_data)
     return qrcode_url, barcode_url
 
-def encrypt_data(qrcode, blemacid, barcodeno, version, wallet_type):
-    site = [qrcode, ',', blemacid, ',', barcodeno, ',', version, ',', wallet_type,
+def encrypt_data(qrcode, mac_id, barcode_no, version, wallet_type):
+    site = [qrcode, ',', mac_id, ',', barcode_no, ',', version, ',', wallet_type,
             ',\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10']
     str_qr = ''.join(site)
     qr_byte = str_qr.encode('utf-8')
@@ -96,11 +96,11 @@ def generate_qrcode(qr_data, filename, scale_factor=5):
     qr_code_filename = f"{filename}_qrcode.svg"
     qr_code_path = os.path.join(BAR_QR_FOLDER, qr_code_filename)
     qr_code.svg(qr_code_path, scale=scale_factor)
-    return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{qr_code_filename}"
+    return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{qr_code_filename}?data={qr_data}"
 
-def generate_barcode(barcode_data, filename):
+def generate_barcode(barcode_data):
     my_code = EAN13(barcode_data, writer=SVGWriter())
-    barcode_filename = f"{filename}_barcode"
+    barcode_filename = f"{barcode_data}_barcode"
     barcode_path = os.path.join(BAR_QR_FOLDER, barcode_filename)
     my_code.save(barcode_path)
     return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{barcode_filename}.svg"
