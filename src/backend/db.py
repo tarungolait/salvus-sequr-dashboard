@@ -26,7 +26,9 @@ def create_table():
             countrycode VARCHAR(255),
             qrcode VARCHAR(255),
             blemacid VARCHAR(255),
-            version VARCHAR(255)
+            version VARCHAR(255),
+            barcode_location VARCHAR(255),
+            qrcode_location VARCHAR(255)
         )'''
 
         # Execute the CREATE TABLE command

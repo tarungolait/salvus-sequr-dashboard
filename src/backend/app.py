@@ -36,8 +36,8 @@ def add_data_entry():
         data = request.json
         with psycopg2.connect(**db_config) as connection:
             with connection.cursor() as cursor:
-                postgres_insert_query = """INSERT INTO data_entry (barcodeno, wallet_type, walletcolor, manufacturingdate, batchnum, countrycode, qrcode, blemacid, version) 
-                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                postgres_insert_query = """INSERT INTO data_entry (barcodeno, wallet_type, walletcolor, manufacturingdate, batchnum, countrycode, qrcode, blemacid, version, barcode_location, qrcode_location) 
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""  # Updated query to include barcode_location and qrcode_location
                 record_to_insert = (
                     data['barcodeno'],
                     data['wallet_type'],
@@ -47,13 +47,22 @@ def add_data_entry():
                     data['countrycode'],
                     data['qrcode'],
                     data['blemacid'],
-                    data['version']
+                    data['version'],
+                    None,  # Placeholder for barcode_location
+                    None   # Placeholder for qrcode_location
                 )
                 cursor.execute(postgres_insert_query, record_to_insert)
                 connection.commit()
                 count_records = cursor.rowcount
 
         qrcode_url, barcode_url = generate_codes(data['qrcode'], data['barcodeno'], data['version'], data['wallet_type'], data['blemacid'])
+
+        # Update the database with barcode and qrcode locations
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                update_query = """UPDATE data_entry SET barcode_location = %s, qrcode_location = %s WHERE barcodeno = %s"""
+                cursor.execute(update_query, (barcode_url, qrcode_url, data['barcodeno']))
+                connection.commit()
 
         return jsonify({'message': f'{count_records} Record(s) inserted successfully', 'qrcode_url': qrcode_url, 'barcode_url': barcode_url})
 
@@ -86,14 +95,14 @@ def generate_qrcode(qr_data, filename, scale_factor=5):
     qr_code_filename = f"{filename}_qrcode.svg"
     qr_code_path = os.path.join(BAR_QR_FOLDER, qr_code_filename)
     qr_code.svg(qr_code_path, scale=scale_factor)
-    return f"http://127.0.0.1:5500/{qr_code_filename}"
+    return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{qr_code_filename}"
 
 def generate_barcode(barcode_data, filename):
     my_code = EAN13(barcode_data, writer=SVGWriter())
     barcode_filename = f"{filename}_barcode"
     barcode_path = os.path.join(BAR_QR_FOLDER, barcode_filename)
     my_code.save(barcode_path)
-    return f"http://127.0.0.1:5500/{barcode_filename}.svg"
+    return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{barcode_filename}.svg"
 
 if __name__ == '__main__':
     app.run(debug=True)
