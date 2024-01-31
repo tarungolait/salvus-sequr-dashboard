@@ -6,7 +6,7 @@ def create_table():
         # Establish a connection to the PostgreSQL database
         connection = psycopg2.connect(
             user="postgres",
-            password="zaynmalik2002",
+            password="0000",
             host="localhost",
             port="5432",
             database="infinicue"
