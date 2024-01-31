@@ -30,6 +30,31 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
+@app.route('/api/product-details', methods=['POST'])
+def add_product_details():
+    try:
+        data = request.json
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                postgres_insert_query = """INSERT INTO product_details (product_category, product_type, color, battery_type, ble_make, version) 
+                                   VALUES (%s, %s, %s, %s, %s, %s)"""
+                record_to_insert = (
+                    data['product_category'],
+                    data['product_type'],
+                    data['color'],
+                    data['battery_type'],
+                    data['ble_make'],
+                    data['version']
+                )
+                cursor.execute(postgres_insert_query, record_to_insert)
+                connection.commit()
+                count_records = cursor.rowcount
+
+        return jsonify({'message': f'{count_records} Record(s) inserted successfully'})
+
+    except Exception as error:
+        return jsonify({'error': str(error)})
+    
 @app.route('/api/data-entry', methods=['POST'])
 def add_data_entry():
     try:

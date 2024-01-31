@@ -16,26 +16,43 @@ def create_table():
         cursor = connection.cursor()
 
         # SQL statement to create the data_entry table
-        create_table_query = '''CREATE TABLE IF NOT EXISTS data_entry (
-          id SERIAL PRIMARY KEY,
-    category VARCHAR(255),
-    type VARCHAR(255),
-    color VARCHAR(255),
-    macId VARCHAR(255),
-    qrCode TEXT,
-    barcodeNo VARCHAR(255),
-    version VARCHAR(255),
-    batchNumber VARCHAR(255),
-    countryCode VARCHAR(255),
-    manufacturingDate DATE,
-    barcode_location TEXT,
-    qrcode_location TEXT
+        create_table_query_data_entry = '''CREATE TABLE IF NOT EXISTS data_entry (
+            id SERIAL PRIMARY KEY,
+            category VARCHAR(255),
+            type VARCHAR(255),
+            color VARCHAR(255),
+            macId VARCHAR(255),
+            qrCode TEXT,
+            barcodeNo VARCHAR(255),
+            version VARCHAR(255),
+            batchNumber VARCHAR(255),
+            countryCode VARCHAR(255),
+            manufacturingDate DATE,
+            barcode_location TEXT,
+            qrcode_location TEXT
         )'''
 
-        # Execute the CREATE TABLE command
-        cursor.execute(create_table_query)
+        # Execute the CREATE TABLE command for data_entry table
+        cursor.execute(create_table_query_data_entry)
+        print("data_entry Table created successfully!")
+
+        # SQL statement to create the product_details table
+        create_table_query_product_details = '''CREATE TABLE IF NOT EXISTS product_details (
+            id SERIAL PRIMARY KEY,
+            product_category VARCHAR(255) NOT NULL,
+            product_type VARCHAR(255) NOT NULL,
+            color VARCHAR(255) NOT NULL,
+            battery_type VARCHAR(255) NOT NULL,
+            ble_make VARCHAR(255) NOT NULL,
+            version VARCHAR(255) NOT NULL
+        )'''
+
+        # Execute the CREATE TABLE command for product_details table
+        cursor.execute(create_table_query_product_details)
+        print("product_details Table created successfully!")
+
+        # Commit the changes
         connection.commit()
-        print("Table created successfully!")
 
     except OperationalError as e:
         print(f"The error '{e}' occurred.")
@@ -46,5 +63,5 @@ def create_table():
             cursor.close()
             connection.close()
 
-# Call the function to create the table
+# Call the function to create the tables
 create_table()
