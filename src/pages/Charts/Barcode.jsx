@@ -9,8 +9,8 @@ const Barcode = () => {
     qrCode: '',
     barcodeNo: '',
     version: '',
-    batchNumber: '',
-    countryCode: '',
+    batchNumber: '012003202102', // Constant value for batchNumber
+    countryCode: '890', // Constant value for countryCode
     manufacturingDate: new Date().toISOString().split("T")[0], // Initializing with current date
   });
 
