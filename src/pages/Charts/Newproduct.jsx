@@ -17,10 +17,10 @@ const Newproduct = () => {
                 </td>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="colors">
-                    Colors
+                    Type 
                   </label>
                   <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="colors">
-                    <option>Select or Add New color</option>
+                    <option>Select or Add New</option>
                     {/* Add options for colors here */}
                   </select>
                 </td>
@@ -28,7 +28,7 @@ const Newproduct = () => {
               <tr>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="battery-type">
-                    Battery Type
+                    Color
                   </label>
                   <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="battery-type">
                     <option>Select or Add New</option>
@@ -37,32 +37,27 @@ const Newproduct = () => {
                 </td>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="batch-number">
-                    Batch Number
+                    Battery Type
                   </label>
-                  <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="batch-number" type="text" placeholder="Enter batch number" />
-                </td>
+                  <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="battery-type">
+                    <option>Select or Add New</option>
+                    {/* Add options for battery types here */}
+                  </select>                </td>
               </tr>
               <tr>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="qr-code">
-                    QR Code
+                    BLE Make
                   </label>
                   <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="qr-code" type="text" placeholder="Enter QR code" />
                 </td>
-                <td className="px-3 py-2">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="barcode-no">
-                    Barcode No
-                  </label>
-                  <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="barcode-no" type="text" placeholder="Enter barcode number" />
-                </td>
-              </tr>
-              <tr>
+               
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="version">
                     Version
                   </label>
                   <select className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="version">
-                    <option>Select version</option>
+                    <option>Select or Add new Version</option>
                     {/* Add options for versions here */}
                   </select>
                 </td>

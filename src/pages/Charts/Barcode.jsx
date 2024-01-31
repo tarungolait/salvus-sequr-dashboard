@@ -60,13 +60,13 @@ const Barcode = () => {
               <tr>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="blemacid">
-                    BLE MAC ID
+                    Category
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="blemacid"
                     type="text"
-                    placeholder="Enter BLE MAC ID"
+                    placeholder="Select"
                     name="blemacid"
                     value={formData.blemacid}
                     onChange={handleChange}
@@ -74,13 +74,13 @@ const Barcode = () => {
                 </td>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="wallet_type">
-                    Wallet Type
+                    Type
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="wallet_type"
                     type="text"
-                    placeholder="Enter Wallet Type"
+                    placeholder="Select Product Type"
                     name="wallet_type"
                     value={formData.wallet_type}
                     onChange={handleChange}
@@ -90,13 +90,13 @@ const Barcode = () => {
               <tr>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="walletcolor">
-                    Wallet Color
+                    Color
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="walletcolor"
                     type="text"
-                    placeholder="Enter Wallet Color"
+                    placeholder="Select Color"
                     name="walletcolor"
                     value={formData.walletcolor}
                     onChange={handleChange}
@@ -104,13 +104,13 @@ const Barcode = () => {
                 </td>
                 <td className="px-3 py-2">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="manufacturingdate">
-                    Manufacturing Date
+                    MAC ID
                   </label>
                   <input
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="manufacturingdate"
                     type="text"
-                    placeholder="Enter Manufacturing Date"
+                    placeholder="Enter MacID"
                     name="manufacturingdate"
                     value={formData.manufacturingdate}
                     onChange={handleChange}
@@ -189,6 +189,20 @@ const Barcode = () => {
                     placeholder="Enter Country Code"
                     name="countrycode"
                     value={formData.countrycode}
+                    onChange={handleChange}
+                  />
+                </td>
+                <td className="px-3 py-2">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="manufacturingdate">
+                    Manufacturing Date
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="manufacturingdate"
+                    type="text"
+                    placeholder="Enter MacID"
+                    name="manufacturingdate"
+                    value={formData.manufacturingdate}
                     onChange={handleChange}
                   />
                 </td>
