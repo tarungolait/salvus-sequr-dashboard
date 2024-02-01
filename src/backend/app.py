@@ -55,6 +55,33 @@ def add_product_details():
     except Exception as error:
         return jsonify({'error': str(error)})
     
+@app.route('/api/product-details', methods=['GET'])
+def get_product_details():
+    try:
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT DISTINCT product_category FROM product_details")
+                categories = [row[0] for row in cursor.fetchall()]
+
+                cursor.execute("SELECT DISTINCT product_type FROM product_details")
+                types = [row[0] for row in cursor.fetchall()]
+
+                cursor.execute("SELECT DISTINCT color FROM product_details")
+                colors = [row[0] for row in cursor.fetchall()]
+
+                cursor.execute("SELECT DISTINCT version FROM product_details")
+                versions = [row[0] for row in cursor.fetchall()]
+
+        return jsonify({
+            'categories': categories,
+            'types': types,
+            'colors': colors,
+            'versions': versions
+        })
+
+    except Exception as error:
+        return jsonify({'error': str(error)})
+
 @app.route('/api/data-entry', methods=['POST'])
 def add_data_entry():
     try:
