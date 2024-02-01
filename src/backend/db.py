@@ -51,6 +51,23 @@ def create_table():
         cursor.execute(create_table_query_product_details)
         print("product_details Table created successfully!")
 
+        # SQL statement to create the bank_contacts table
+        create_table_query_bank_contacts = '''CREATE TABLE IF NOT EXISTS bank_contacts (
+            id SERIAL PRIMARY KEY,
+            bank_name VARCHAR(255),
+            type_of_bank VARCHAR(255),
+            address VARCHAR(255),
+            city VARCHAR(255),
+            country VARCHAR(255),
+            customer_care_number VARCHAR(255),
+            email_id VARCHAR(255),
+            official_website VARCHAR(255)
+        )'''
+
+        # Execute the CREATE TABLE command for bank_contacts table
+        cursor.execute(create_table_query_bank_contacts)
+        print("bank_contacts Table created successfully!")
+
         # Commit the changes
         connection.commit()
 

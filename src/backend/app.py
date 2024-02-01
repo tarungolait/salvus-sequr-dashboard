@@ -157,5 +157,33 @@ def generate_barcode(barcode_data):
     my_code.save(barcode_path)
     return f"http://127.0.0.1:5500/src/backend/BAR_QR_FOLDER/{barcode_filename}.svg"
 
+@app.route('/api/bankcontacts', methods=['POST'])
+def add_bank_contact():
+    try:
+        data = request.json
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                postgres_insert_query = """INSERT INTO bank_contacts (bank_name, type_of_bank, address, city, country, customer_care_number, email_id, official_website) 
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                record_to_insert = (
+                    data['bankName'],
+                    data['typeOfBank'],
+                    data['address'],
+                    data['city'],
+                    data['country'],
+                    data['customerCareNumber'],
+                    data['emailId'],
+                    data['officialWebsite']
+                )
+                cursor.execute(postgres_insert_query, record_to_insert)
+                connection.commit()
+                count_records = cursor.rowcount
+
+        return jsonify({'message': f'{count_records} Record(s) inserted successfully'})
+
+    except Exception as error:
+        return jsonify({'error': str(error)})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
