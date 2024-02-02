@@ -13,7 +13,8 @@ const Barcode = () => {
     countryCode: '890',
     manufacturingDate: new Date().toISOString().split("T")[0],
   });
-
+  const [barcodeUrl, setBarcodeUrl] = useState('');
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [notification, setNotification] = useState(null);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]);
@@ -48,6 +49,14 @@ const Barcode = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if any field is empty
+    const isAnyFieldEmpty = Object.values(formData).some(value => value === '');
+    if (isAnyFieldEmpty) {
+      showNotification('All fields are required', 'error');
+      return;
+    }
+    
     try {
       const response = await fetch('http://localhost:5000/api/data-entry', {
         method: 'POST',
@@ -58,6 +67,10 @@ const Barcode = () => {
       });
       const data = await response.json();
       console.log(data);
+
+      setBarcodeUrl(data.barcode_url);
+      setQrCodeUrl(data.qrcode_url);
+
       showNotification('Form submitted successfully', 'success');
     } catch (error) {
       console.error('Error:', error);
@@ -72,11 +85,27 @@ const Barcode = () => {
     }, 3000);
   };
 
+  const handlePrintQRCode = () => {
+    const qrCodeWindow = window.open('', '_blank');
+    qrCodeWindow.document.write(
+      `<img src="${qrCodeUrl}" style="width: 3cm; height: 3cm;" onload="window.print()" />`
+    );
+    qrCodeWindow.document.close();
+  };
+  
+  const handlePrintBarcode = () => {
+    const barcodeWindow = window.open('', '_blank');
+    barcodeWindow.document.write(
+      `<img src="${barcodeUrl}" style="width: 5cm; height: 2.5cm;" onload="window.print()" />`
+    );
+    barcodeWindow.document.close();
+  };
+
   return (
-    <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
-      <h2 className="text-lg font-bold mb-4">Product Details</h2>
-      <div className="overflow-x-auto">
-        <form className="w-full max-w-lg" onSubmit={handleSubmit}>
+    <div className="flex m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <div className="w-full max-w-lg">
+        <h2 className="text-lg font-bold mb-4">Product Details</h2>
+        <form onSubmit={handleSubmit}>
           <table className="w-full">
             <tbody>
               <tr>
@@ -247,6 +276,12 @@ const Barcode = () => {
             <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
               Submit
             </button>
+            {qrCodeUrl && (
+              <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded ml-4" onClick={handlePrintQRCode}>Print QR Code</button>
+            )}
+            {barcodeUrl && (
+              <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded ml-4" onClick={handlePrintBarcode}>Print Barcode</button>
+            )}
           </div>
           {notification && (
             <div className={`notification ${notification.type}`}>
@@ -255,6 +290,21 @@ const Barcode = () => {
           )}
         </form>
       </div>
+      {qrCodeUrl && (
+        <div className="flex flex-col items-center ml-8 mt-8" style={{ marginLeft: '80px', marginTop: '190px' }}>
+          <div style={{ backgroundColor: '#f5f5f5', marginBottom: '16px', borderRadius: '8px', border: '3px solid rgba(0, 0, 0, 0.5)' }}>
+            <img src={qrCodeUrl} alt="QR Code" style={{ width: '120px', height: '120px', display: 'block', margin: '0 auto' }} />
+          </div>
+        </div>
+      )}
+
+      {barcodeUrl && (
+        <div className="flex flex-col items-center ml-8 mt-8" style={{ marginLeft: '50px', marginTop: '210px' }}>
+          <div style={{ backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
+            <img src={barcodeUrl} alt="Barcode" style={{ width: '150px', height: '80px', display: 'block', margin: '0 auto', border: '2px solid rgba(0, 0, 0, 0.5)' }} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

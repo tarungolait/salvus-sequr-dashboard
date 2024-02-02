@@ -133,7 +133,7 @@ const NewProduct = () => {
               </tr>
             </tbody>
           </table>
-          <div className="flex justify-center mt-8"> {/* Adjusted wrapper for buttons */}
+          <div className="flex justify-center mt-8"> 
             <button className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
               Submit
             </button>
