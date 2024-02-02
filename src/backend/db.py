@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2 import OperationalError
 
-def create_table():
+def create_tables():
     try:
         # Establish a connection to the PostgreSQL database
         connection = psycopg2.connect(
@@ -68,6 +68,17 @@ def create_table():
         cursor.execute(create_table_query_bank_contacts)
         print("bank_contacts Table created successfully!")
 
+        # SQL statement to create the ProductCodes table
+        create_table_query_product_codes = '''CREATE TABLE IF NOT EXISTS ProductCodes (
+            id SERIAL PRIMARY KEY,
+            QRCode VARCHAR(255) NOT NULL,
+            BarcodeNo VARCHAR(255) NOT NULL
+        )'''
+
+        # Execute the CREATE TABLE command for ProductCodes table
+        cursor.execute(create_table_query_product_codes)
+        print("ProductCodes Table created successfully!")
+
         # Commit the changes
         connection.commit()
 
@@ -81,4 +92,4 @@ def create_table():
             connection.close()
 
 # Call the function to create the tables
-create_table()
+create_tables()

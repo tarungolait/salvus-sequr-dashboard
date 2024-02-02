@@ -30,6 +30,43 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
+@app.route('/api/product-codes', methods=['GET'])
+def get_product_codes():
+    try:
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT id, qrcode, barcodeno FROM ProductCodes ORDER BY id DESC LIMIT 1")
+                last_product_code = cursor.fetchone()
+
+                if last_product_code:
+                    last_qrcode = last_product_code[1]
+                    last_barcodeno = last_product_code[2]
+                else:
+                    # If no records exist, start with initial values
+                    last_qrcode = "00000"
+                    last_barcodeno = "890202400000"
+
+                # Increment the last values for the next record
+                next_qrcode = str(int(last_qrcode) + 1).zfill(len(last_qrcode))
+                next_barcodeno = str(int(last_barcodeno) + 1)
+
+                # Insert the new record with the incremented values
+                cursor.execute("INSERT INTO ProductCodes (qrcode, barcodeno) VALUES (%s, %s) RETURNING id", (next_qrcode, next_barcodeno))
+                new_id = cursor.fetchone()[0]
+
+                connection.commit()
+
+        return jsonify({
+            'id': new_id,
+            'qrCode': next_qrcode,
+            'barcodeNo': next_barcodeno
+        })
+
+    except Exception as error:
+        return jsonify({'error': str(error)})
+
+
+    
 @app.route('/api/product-details', methods=['POST'])
 def add_product_details():
     try:

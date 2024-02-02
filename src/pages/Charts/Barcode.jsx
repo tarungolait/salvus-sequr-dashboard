@@ -34,6 +34,14 @@ const Barcode = () => {
       setTypes(types);
       setColors(colors);
       setVersions(versions);
+
+      const productCodesResponse = await fetch('http://localhost:5000/api/product-codes');
+      const productCodesData = await productCodesResponse.json();
+      setFormData({
+        ...formData,
+        qrCode: productCodesData.qrCode,
+        barcodeNo: productCodesData.barcodeNo
+      });
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -49,14 +57,13 @@ const Barcode = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Check if any field is empty
+
     const isAnyFieldEmpty = Object.values(formData).some(value => value === '');
     if (isAnyFieldEmpty) {
       showNotification('All fields are required', 'error');
       return;
     }
-    
+
     try {
       const response = await fetch('http://localhost:5000/api/data-entry', {
         method: 'POST',
@@ -92,7 +99,7 @@ const Barcode = () => {
     );
     qrCodeWindow.document.close();
   };
-  
+
   const handlePrintBarcode = () => {
     const barcodeWindow = window.open('', '_blank');
     barcodeWindow.document.write(
