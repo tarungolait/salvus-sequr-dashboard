@@ -27,6 +27,7 @@ const Barcode = () => {
 
   const fetchData = async () => {
     try {
+      // Fetch product details including categories, types, colors, and versions
       const response = await fetch('http://localhost:5000/api/product-details');
       const data = await response.json();
       const { categories, types, colors, versions } = data;
@@ -34,18 +35,26 @@ const Barcode = () => {
       setTypes(types);
       setColors(colors);
       setVersions(versions);
-
+  
+      // Fetch latest barcode number and QR code
       const productCodesResponse = await fetch('http://localhost:5000/api/product-codes');
       const productCodesData = await productCodesResponse.json();
+  
+      // Increment the barcode number and QR code by 1
+      const nextBarcodeNo = parseInt(productCodesData.barcodeNo) + 1;
+      const nextQrCode = (parseInt(productCodesData.qrCode) + 1).toString().padStart(productCodesData.qrCode.length, '0');
+  
+      // Update the formData state with incremented barcodeNo and qrCode
       setFormData({
         ...formData,
-        qrCode: productCodesData.qrCode,
-        barcodeNo: productCodesData.barcodeNo
+        qrCode: nextQrCode,
+        barcodeNo: nextBarcodeNo.toString()
       });
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
