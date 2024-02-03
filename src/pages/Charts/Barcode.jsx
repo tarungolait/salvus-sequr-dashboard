@@ -54,7 +54,6 @@ const Barcode = () => {
       console.error('Error fetching data:', error);
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,6 +84,27 @@ const Barcode = () => {
     }
 
     try {
+      // Check if MAC ID, Barcode, and QR Code already exist in the data_entry table
+      const checkDuplicateResponse = await fetch(`http://localhost:5000/api/data-entry/check-duplicate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          macId: formData.macId,
+          barcodeNo: formData.barcodeNo,
+          qrCode: formData.qrCode
+        }),
+      });
+
+      const checkDuplicateData = await checkDuplicateResponse.json();
+      
+      if (checkDuplicateData.duplicateFound) {
+        showNotification('Duplicate entry found for MAC ID, Barcode, or QR Code', 'error');
+        return;
+      }
+
+      // Proceed with form submission if no duplicate entry found
       const response = await fetch(`http://localhost:5000/api/product-codes?increment_on_submit=true`, {
         method: 'GET',
         headers: {
@@ -142,7 +162,6 @@ const Barcode = () => {
     );
     barcodeWindow.document.close();
   };
-
   return (
     <div className="flex m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
       <div className="w-full max-w-lg">

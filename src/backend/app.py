@@ -128,6 +128,24 @@ def get_product_details():
 
     except Exception as error:
         return jsonify({'error': str(error)})
+    
+@app.route('/api/data-entry/check-duplicate', methods=['POST'])
+def check_duplicate_entry():
+    try:
+        data = request.json
+
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT macId, barcodeNo, qrCode FROM data_entry WHERE macId = %s OR barcodeNo = %s OR qrCode = %s", (data['macId'], data['barcodeNo'], data['qrCode']))
+                duplicate_entry = cursor.fetchone()
+
+        if duplicate_entry:
+            return jsonify({'duplicateFound': True})
+        else:
+            return jsonify({'duplicateFound': False})
+
+    except Exception as error:
+        return jsonify({'error': str(error)})
 
 @app.route('/api/data-entry', methods=['POST'])
 def add_data_entry():
