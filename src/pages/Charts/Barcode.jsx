@@ -65,18 +65,33 @@ const Barcode = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/data-entry', {
+      const response = await fetch(`http://localhost:5000/api/product-codes?increment_on_submit=true`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const productCodesData = await response.json();
+      console.log(productCodesData);
+
+      const data = {
+        ...formData,
+        qrCode: productCodesData.qrCode,
+        barcodeNo: productCodesData.barcodeNo
+      };
+
+      const entryResponse = await fetch('http://localhost:5000/api/data-entry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
-      console.log(data);
+      const entryData = await entryResponse.json();
+      console.log(entryData);
 
-      setBarcodeUrl(data.barcode_url);
-      setQrCodeUrl(data.qrcode_url);
+      setBarcodeUrl(entryData.barcode_url);
+      setQrCodeUrl(entryData.qrcode_url);
 
       showNotification('Form submitted successfully', 'success');
     } catch (error) {

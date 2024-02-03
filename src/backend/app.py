@@ -33,6 +33,8 @@ def after_request(response):
 @app.route('/api/product-codes', methods=['GET'])
 def get_product_codes():
     try:
+        increment_on_submit = request.args.get('increment_on_submit') == 'true'
+
         with psycopg2.connect(**db_config) as connection:
             with connection.cursor() as cursor:
                 cursor.execute("SELECT id, qrcode, barcodeno FROM ProductCodes ORDER BY id DESC LIMIT 1")
@@ -46,15 +48,22 @@ def get_product_codes():
                     last_qrcode = "00000"
                     last_barcodeno = "890202400000"
 
-                # Increment the last values for the next record
-                next_qrcode = str(int(last_qrcode) + 1).zfill(len(last_qrcode))
-                next_barcodeno = str(int(last_barcodeno) + 1)
+                if increment_on_submit:
+                    # Increment the last values for the next record
+                    next_qrcode = str(int(last_qrcode) + 1).zfill(len(last_qrcode))
+                    next_barcodeno = str(int(last_barcodeno) + 1)
+                else:
+                    # Return the current values without incrementing
+                    next_qrcode = last_qrcode
+                    next_barcodeno = last_barcodeno
 
                 # Insert the new record with the incremented values
-                cursor.execute("INSERT INTO ProductCodes (qrcode, barcodeno) VALUES (%s, %s) RETURNING id", (next_qrcode, next_barcodeno))
-                new_id = cursor.fetchone()[0]
-
-                connection.commit()
+                if increment_on_submit:
+                    cursor.execute("INSERT INTO ProductCodes (qrcode, barcodeno) VALUES (%s, %s) RETURNING id", (next_qrcode, next_barcodeno))
+                    new_id = cursor.fetchone()[0]
+                    connection.commit()
+                else:
+                    new_id = None
 
         return jsonify({
             'id': new_id,
@@ -64,6 +73,7 @@ def get_product_codes():
 
     except Exception as error:
         return jsonify({'error': str(error)})
+
 
 
     
