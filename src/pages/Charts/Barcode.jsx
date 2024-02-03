@@ -62,6 +62,17 @@ const Barcode = () => {
       ...formData,
       [name]: value,
     });
+
+    // Regular expression to validate BLE MAC ID format
+    const macIdRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
+
+    // Check if the input value matches the MAC ID format
+    const isValidMacId = macIdRegex.test(value);
+
+    // Show an error notification if the input value is not a valid MAC ID
+    if (name === 'macId' && !isValidMacId && value !== '') {
+      showNotification('Invalid BLE MAC ID format', 'error');
+    }
   };
 
   const handleSubmit = async (e) => {
