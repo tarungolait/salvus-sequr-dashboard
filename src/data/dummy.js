@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
-import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart,FiHome,FiBriefcase,FiPhone,FiShield,FiPlusSquare,FiGlobe,FiAlertTriangle,FiPrinter,FiTrash,FiUserPlus } from 'react-icons/fi';
+import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart,FiHome,FiBriefcase,FiPhone,FiShield,FiPlusSquare,FiGlobe,FiAlertTriangle,FiPrinter,FiTrash,FiUserPlus,FiSearch,FiCode } from 'react-icons/fi';
 import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
@@ -21,7 +21,9 @@ import product4 from './product4.jpg';
 import product5 from './product5.jpg';
 import product6 from './product6.jpg';
 import product7 from './product7.jpg';
-import product8 from './product8.jpg';
+import SalvusLogo from '../pages/logo.png';
+
+
 
 export const gridOrderImage = (props) => (
   <div>
@@ -475,10 +477,11 @@ export const links = [
     links: [
       {
         name: 'Salvus',
-        icon: <FiHome />,
+        icon: <img src={SalvusLogo} alt="Salvus Icon" style={{ width: '28px', height: '28px' }} />,
       },
     ],
   },
+
 
   // {
   //   title: 'Pages',
@@ -523,12 +526,17 @@ export const links = [
     links: [
 
       {
+        name: 'Search',
+        icon: <FiSearch />,
+      },
+
+      {
         name: 'Add New Products',
         icon: <FiPlusSquare />,
       },
       {
-        name: 'Barcode',
-        icon: <FiBarChart />,
+        name: 'Barcode & QR Generation',
+        icon: <FiCode />,
       },
 
      
@@ -552,18 +560,15 @@ export const links = [
         icon: <FiGlobe/>,
       },
 
-      {
-        name: 'Fraud QR and Numbers',
-        icon: <FiAlertTriangle />,
-      },
-      {
-        name: 'Print',
-        icon: <FiPrinter />,
-      },
-      {
-        name: 'Delete',
-        icon: <FiTrash />,
-      },
+      // {
+      //   name: 'Fraud QR and Numbers',
+      //   icon: <FiAlertTriangle />,
+      // },
+      // {
+      //   name: 'Print',
+      //   icon: <FiPrinter />,
+      // },
+      
       {
         name: 'New User',
         icon: <FiUserPlus />,

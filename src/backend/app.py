@@ -250,5 +250,40 @@ def add_bank_contact():
         return jsonify({'error': str(error)})
 
 
+@app.route('/api/data-entry/search', methods=['POST'])
+def search_data_entry():
+    try:
+        data = request.json
+
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM data_entry WHERE macId = %s OR barcodeNo = %s OR qrCode = %s", (data['macId'], data['barcodeNo'], data['qrCode']))
+                search_result = cursor.fetchone()
+
+        if search_result:
+            # Convert the row to a dictionary for easier JSON serialization
+            search_result_dict = {
+                'category': search_result[1],
+                'type': search_result[2],
+                'color': search_result[3],
+                'macId': search_result[4],
+                'qrCode': search_result[5],
+                'barcodeNo': search_result[6],
+                'version': search_result[7],
+                'batchNumber': search_result[8],
+                'countryCode': search_result[9],
+                'manufacturingDate': search_result[10],
+                'barcodeLocation': search_result[11],  # Assuming the barcode location is at index 11 in your table
+                'qrCodeLocation': search_result[12]    # Assuming the QR code location is at index 12 in your table
+            }
+            return jsonify(search_result_dict)
+        else:
+            return jsonify({'error': 'No matching entry found'}), 404
+
+    except Exception as error:
+        return jsonify({'error': str(error)}), 500
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

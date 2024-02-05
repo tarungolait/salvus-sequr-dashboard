@@ -9,7 +9,7 @@ import { Salvus } from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import Barcode from './pages/Charts/Barcode';
 import Newproduct from './pages/Charts/Newproduct';
-import Delete from './pages/Charts/Delete';
+import Delete from './pages/Charts/Search';
 import Bankcontacts from './pages/Charts/Bankcontacts';
 import Print from './pages/Charts/Print';
 import Embassy from './pages/Charts/Embassy';
@@ -17,6 +17,7 @@ import Cybercops from './pages/Charts/Cybercops';
 import Appandwebsites from './pages/Charts/Appandwebsites';
 import Fraudqrandnumbers from './pages/Charts/Fraudqrandnumbers';
 import AddNewUser from './pages/Charts/Newuser';
+import Search from './pages/Charts/Search';
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
@@ -77,9 +78,9 @@ const App = () => {
                 <Route path="/salvus" element={<Salvus />} />
 
                 {/* Other routes */}
-                <Route path="/barcode" element={<Barcode />} />
+                <Route path="/Barcode & QR Generation" element={<Barcode />} />
                 <Route path="/Add New Products" element={<Newproduct />} />
-                <Route path="/Delete" element={<Delete />} />
+                <Route path="/Search" element={<Search />} />
                 <Route path="/Bank Contacts" element={<Bankcontacts />} />
                 <Route path="/Print" element={<Print />} />
                 <Route path="/Embassies Contacts" element={<Embassy />} />

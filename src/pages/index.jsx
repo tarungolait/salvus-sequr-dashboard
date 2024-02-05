@@ -1,6 +1,6 @@
 export { default as Barcode } from './Charts/Barcode';
 export { default as Newproduct } from './Charts/Newproduct';
-export { default as Delete } from './Charts/Delete';
+export { default as Delete } from './Charts/Search';
 export { default as Bankcontacts } from './Charts/Bankcontacts';
 export { default as Print } from './Charts/Print';
 export { default as Embassy } from './Charts/Embassy';
