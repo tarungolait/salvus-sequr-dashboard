@@ -282,7 +282,23 @@ def search_data_entry():
 
     except Exception as error:
         return jsonify({'error': str(error)}), 500
+# Define your routes and functions here
 
+@app.route('/api/data-entry/delete', methods=['DELETE'])
+def delete_data_entry():
+    try:
+        data = request.json
+
+        with psycopg2.connect(**db_config) as connection:
+            with connection.cursor() as cursor:
+                # Delete the row from the data_entry table based on the macId
+                cursor.execute("DELETE FROM data_entry WHERE macId = %s", (data['macId'],))
+                connection.commit()
+
+        return jsonify({'message': 'Row deleted successfully'})
+
+    except Exception as error:
+        return jsonify({'error': str(error)}), 500
 
 
 if __name__ == '__main__':
