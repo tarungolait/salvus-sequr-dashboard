@@ -43,10 +43,17 @@ const Search = () => {
                 const printWindow = window.open('', '_blank');
                 if (printWindow) {
                     printWindow.document.write('<html><head><title>Print Barcode</title></head><body>');
-                    printWindow.document.write('<img src="' + barcodeImage.src + '" style="max-width:100%;height:auto;" />');
+                    printWindow.document.write('<div style="text-align:center;">Loading Barcode...</div>');
                     printWindow.document.write('</body></html>');
                     printWindow.document.close();
-                    printWindow.print(); // Directly print the opened window
+                    setTimeout(() => {
+                        printWindow.document.body.innerHTML = '';
+                        printWindow.document.write('<html><head><title>Print Barcode</title></head><body>');
+                        printWindow.document.write('<img src="' + barcodeImage.src + '" style="max-width:100%;height:auto;" />');
+                        printWindow.document.write('</body></html>');
+                        printWindow.document.close();
+                        printWindow.print(); // Directly print the opened window
+                    }, 1000); // Delay of 1 second (1000 milliseconds)
                 } else {
                     console.error('Failed to open print window');
                 }
@@ -56,7 +63,7 @@ const Search = () => {
             };
         }
     };
-
+    
     const handlePrintQRCode = () => {
         if (searchResult && searchResult.qrCodeLocation) {
             const qrCodeImage = new Image();
@@ -65,10 +72,17 @@ const Search = () => {
                 const printWindow = window.open('', '_blank');
                 if (printWindow) {
                     printWindow.document.write('<html><head><title>Print QR Code</title></head><body>');
-                    printWindow.document.write('<img src="' + qrCodeImage.src + '" style="max-width:100%;height:auto;" />');
+                    printWindow.document.write('<div style="text-align:center;">Loading QR Code...</div>');
                     printWindow.document.write('</body></html>');
                     printWindow.document.close();
-                    printWindow.print(); // Directly print the opened window
+                    setTimeout(() => {
+                        printWindow.document.body.innerHTML = '';
+                        printWindow.document.write('<html><head><title>Print QR Code</title></head><body>');
+                        printWindow.document.write('<img src="' + qrCodeImage.src + '" style="max-width:100%;height:auto;" />');
+                        printWindow.document.write('</body></html>');
+                        printWindow.document.close();
+                        printWindow.print(); // Directly print the opened window
+                    }, 1000); // Delay of 1 second (1000 milliseconds)
                 } else {
                     console.error('Failed to open print window');
                 }
@@ -78,7 +92,7 @@ const Search = () => {
             };
         }
     };
-
+    
     const handleDeleteRow = async () => {
         try {
             const response = await fetch(`http://localhost:5000/api/data-entry/delete`, {
