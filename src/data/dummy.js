@@ -525,10 +525,10 @@ export const links = [
     title: 'Services',
     links: [
 
-      {
-        name: 'Search',
-        icon: <FiSearch />,
-      },
+      // {
+      //   name: 'Search',
+      //   icon: <FiSearch />,
+      // },
 
       {
         name: 'Add New Products',

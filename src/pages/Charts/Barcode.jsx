@@ -146,14 +146,51 @@ const Barcode = () => {
       setNotification(null);
     }, 3000);
   };
-
   const handlePrintQRCode = () => {
     const qrCodeWindow = window.open('', '_blank');
-    qrCodeWindow.document.write(
-      `<img src="${qrCodeUrl}" style="width: 3cm; height: 3cm;" onload="window.print()" />`
-    );
+    const qrCodeHTML = `
+      <html>
+        <head>
+          <title>Print QR Code</title>
+          <style>
+            .container {
+              position: relative;
+              width: calc(2.5cm - 2px);
+              height: calc(2.5cm - 2px);
+              background-color: #f0f0f0;
+              border: 1px solid #ccc;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 8px;
+            }
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              width: 100%;
+              height: auto;
+            }
+            .qr-code-number {
+              position: absolute;
+              bottom: -1px;
+              left: 50%;
+              transform: translateX(-50%);
+              font-size: 10px;
+            }
+          </style>
+        </head>
+        <body onload="window.print()">
+          <div class="container">
+            <img src="${qrCodeUrl}" />
+            <div class="qr-code-number">${formData.qrCode}</div>
+          </div>
+        </body>
+      </html>
+    `;
+    qrCodeWindow.document.write(qrCodeHTML);
     qrCodeWindow.document.close();
   };
+  
 
   const handlePrintBarcode = () => {
     const barcodeWindow = window.open('', '_blank');
