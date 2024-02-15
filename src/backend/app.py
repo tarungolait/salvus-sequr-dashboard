@@ -194,7 +194,8 @@ def generate_codes(qrcode_data, barcode_data, version, item_type, mac_id):
     return qrcode_url, barcode_url
 
 def encrypt_data(qrcode, mac_id, barcode_no, version, wallet_type):
-    site = [barcode_no, ',', mac_id, ',', wallet_type, ',', version, ',', ',\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10']
+    site = [qrcode, ',', mac_id, ',', barcode_no, ',', version, ',', wallet_type,
+            ',\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10\x10']
     str_qr = ''.join(site)
     qr_byte = str_qr.encode('utf-8')
 
@@ -202,12 +203,10 @@ def encrypt_data(qrcode, mac_id, barcode_no, version, wallet_type):
     iv = 'helloworldhelloo'.encode('utf-8')
     aes = AES.new(key, AES.MODE_CBC, iv)
 
-    encrypted_data = aes.encrypt(qr_byte)
-
-    encoded_data = base64.encodebytes(encrypted_data).decode('utf-8')
+    encrypted_data = aes.encrypt(pad(qr_byte, AES.block_size))
+    encoded_data = base64.b64encode(encrypted_data).decode('utf-8')
 
     return encoded_data
-
 
 def generate_qrcode(qr_data, filename, scale_factor=5):
     qr_code = pyqrcode_create(qr_data)
