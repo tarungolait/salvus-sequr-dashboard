@@ -3,7 +3,7 @@ from Crypto.Util.Padding import unpad
 import base64
 
 # Ciphertext to decrypt
-ciphertext = "wb89ne2VEkuDGDKJuORnFgz4PuRh1wRiXDlqECQgSiYEQIgSv8SxK0JWHNLb6ihPbDdYMfqfbPMDQibHleU2pQ=="
+ciphertext = "609dhniQrgSlDW0lYpjRDs8qM1IYUF3Y+0P7igrtwIttF6g2mO5POK41tltlN7uF3pw3GN32eY/aWnicwlASLg=="
 
 # Key and IV used for encryption (must match the ones used for encryption)
 key = 'helloworldhelloo'.encode('utf-8')
