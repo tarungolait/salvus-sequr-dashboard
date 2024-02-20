@@ -26,16 +26,21 @@ except psycopg2.Error as e:
 app.config['SECRET_KEY'] = 'Infinicue'  # Set secret key for Flask app
 app.config['SESSION_COOKIE_SECURE'] = True  # Set session cookie to be secure
 
+# Function to handle QR code data
+@app.route('/')
+def index():
+    return 'Connected'
+
 @app.route('/post', methods=['GET', 'POST'])
 def qr_code():
-    if request.method == 'POST':  # Handling "POST" request from the application front. Qr code scan and post the data to the server.
-        df2 = request.get_json(force=True)  # In Json payload.
+    if request.method == 'POST':
+        df2 = request.get_json(force=True)
         df1 = df2['QRcode']
-        ff = base64.b64decode(df1)  # decode data using base64 decoder
-        key = 'helloworldhelloo'.encode('utf-8')  # unique key used for decryption [note: should be same at app end]
-        text = 'helloworldhello'.encode('utf-8')  # text string used for aes decryption [note: should be same at app end]
-        iv = 'helloworldhelloo'.encode('utf-8')  # IV string used for aes decryption [note: should be same at app end]
-        aes = AES.new(key, AES.MODE_CBC, iv)  # syntax for aes decryption
+        ff = base64.b64decode(df1)
+        key = 'helloworldhelloo'.encode('utf-8')
+        text = 'helloworldhello'.encode('utf-8')
+        iv = 'helloworldhelloo'.encode('utf-8')
+        aes = AES.new(key, AES.MODE_CBC, iv)
         en = aes.decrypt(ff)
         en_str = en.decode('utf-8')
         QR_code = en_str.split(',')
@@ -45,24 +50,19 @@ def qr_code():
         qr_code = QR_code[0]
         device_idd = QR_code[5]
         product = QR_code[4]
-        # Check Whether user already registered as a salvus user
         mycursor = mydb.cursor()
         mycursor.execute("ROLLBACK")
         mydb.commit()
         mycursor.execute('SELECT qrcode, device_id FROM infinicue_master_table WHERE qrcode=%s AND product=%s', [qr_code, product])
         existed_data = mycursor.fetchone()
-        # First check if there is any existing barcode in the barcode table using barcode as a primary key.
         if not existed_data:
             mycursor.execute('SELECT barcodeno FROM barcode WHERE barcodeno=%s', [barcode_no])
             bar = mycursor.fetchone()
-            # If it is not there, acknowledge the app that it is not existed.
             if not bar:
                 return jsonify({"message": "unsuccessful"})
             else:
-                # Check if the existing data is there in the qr code table using barcode as a primary key.
                 mycursor.execute('SELECT barcodeno FROM qrcode WHERE barcodeno=%s', [barcode_no])
                 barcodeno_qr = mycursor.fetchone()
-                # If not existing QR code present
                 if not barcodeno_qr:
                     return jsonify({"message": "unsuccessful"})
                 else:
@@ -83,6 +83,32 @@ def qr_code():
             else:
                 return jsonify({'message': 'successful'})
 
+# Route to handle API call for updating QR code data with additional information
+@app.route('/update_qr_data', methods=['POST'])
+def update_qr_data():
+    if request.method == 'POST':
+        data = request.get_json(force=True)
+        
+        # Extracting data from the JSON payload
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        phone_number = data.get('phone_number')
+        device_id = data.get('device_id')
+        device_type = data.get('device_type')
+        service_provider_data = data.get('service_provider_data')
+        location_data = data.get('location_data')
+        qr_code = data.get('qr_code')
+        
+        # Inserting additional information into the qr_additional_info table
+        mycursor = mydb.cursor()
+        mycursor.execute("INSERT INTO qr_additional_info (first_name, last_name, email, phone_number, device_id, device_type, service_provider_data, location_data, qr_code) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                         (first_name, last_name, email, phone_number, device_id, device_type, service_provider_data, location_data, qr_code))
+        mydb.commit()
+
+        return jsonify({'message': 'QR code data updated successfully'})
+
 # Run Flask app
 if __name__ == '__main__':
+    print("Connected")
     app.run(debug=True)
