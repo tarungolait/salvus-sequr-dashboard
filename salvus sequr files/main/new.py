@@ -28,63 +28,6 @@ except psycopg2.Error as e:
 app.config['SECRET_KEY'] = 'Infinicue'  # Set secret key for Flask app
 app.config['SESSION_COOKIE_SECURE'] = True  # Set session cookie to be secure
 
-# Function to handle QR code data
-@app.route('/')
-def index():
-    return 'Connected'
-
-@app.route('/post', methods=['GET', 'POST'])
-def qr_code():
-    if request.method == 'POST':
-        df2 = request.get_json(force=True)
-        df1 = df2['QRcode']
-        ff = base64.b64decode(df1)
-        key = 'helloworldhelloo'.encode('utf-8')
-        text = 'helloworldhello'.encode('utf-8')
-        iv = 'helloworldhelloo'.encode('utf-8')
-        aes = AES.new(key, AES.MODE_CBC, iv)
-        en = aes.decrypt(ff)
-        en_str = en.decode('utf-8')
-        QR_code = en_str.split(',')
-        barcode_no = QR_code[2]
-        version = QR_code[3]
-        ble_mac_id = QR_code[1]
-        qr_code = QR_code[0]
-        device_idd = QR_code[5]
-        product = QR_code[4]
-        mycursor = mydb.cursor()
-        mycursor.execute("ROLLBACK")
-        mydb.commit()
-        mycursor.execute('SELECT qrcode, device_id FROM infinicue_master_table WHERE qrcode=%s AND product=%s', [qr_code, product])
-        existed_data = mycursor.fetchone()
-        if not existed_data:
-            mycursor.execute('SELECT barcodeno FROM barcode WHERE barcodeno=%s', [barcode_no])
-            bar = mycursor.fetchone()
-            if not bar:
-                return jsonify({"message": "unsuccessful"})
-            else:
-                mycursor.execute('SELECT barcodeno FROM qrcode WHERE barcodeno=%s', [barcode_no])
-                barcodeno_qr = mycursor.fetchone()
-                if not barcodeno_qr:
-                    return jsonify({"message": "unsuccessful"})
-                else:
-                    mycursor.execute('SELECT name, email, phone FROM retailer_user WHERE barcodeno = %s', [barcode_no])
-                    res = mycursor.fetchone()
-                    if not res:
-                        return jsonify({'message': 'successful'})
-                    else:
-                        return jsonify({'name': res[0], 'email': res[1], 'phone': res[2], 'message': 'successful'})
-        else:
-            if existed_data[1] == device_idd:
-                mycursor.execute('SELECT name, email, phone FROM retailer_user WHERE barcodeno = %s', [barcode_no])
-                res = mycursor.fetchone()
-                if not res:
-                    return jsonify({'message': 'successful'})
-                else:
-                    return jsonify({'name': res[0], 'email': res[1], 'phone': res[2], 'message': 'successful'})
-            else:
-                return jsonify({'message': 'successful'})
-
 # 2.This Flask route receives user details entered after scanning QRCode
 @app.route('/userdetail', methods=['POST','GET'])
 def user_post():
@@ -109,6 +52,8 @@ def user_post():
 			validation = mycursor.fetchone()
 			if validation == None:
 				print('done')
+
+
 
 			else:
 				

@@ -167,7 +167,7 @@ def user_details():
                 qrcode_value = None
                 ble_mac_id = None
                 
-            cursor.execute("INSERT INTO infinicue_master_table (barcodeno, qrcode, ble_mac_id, device_id, name, phone, email, passkey, pubkey, privkey, product) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [barcodeno, qrcode_data_row[0][0], qrcode_data_row[0][1], device_id, name, phone, email, passkey, public_str, private_str, product])
+            cursor.execute("INSERT INTO infinicue_master_table (barcodeno, qrcode, ble_mac_id, device_id, name, phone, email, passkey, pubkey, privkey, product) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [barcodeno, qrcode_value, ble_mac_id, device_id, name, phone, email, passkey, public_str, private_str, product])
             connection.commit() 
             return jsonify({'message': 'Successful'})
 

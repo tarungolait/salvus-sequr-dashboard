@@ -14,9 +14,9 @@ import sys      #To provide name of existing modules that have been alreday inst
 
 qrcode = '00002' #declaring variables globally
 
-blemacid = '60:A4:23:32:0A:AF'
+blemacid = '60:A4:23:32:0A:AE'
 
-barcodeno = '890201700003'
+barcodeno = '890201700004'
 
 version = '1.0'
 
