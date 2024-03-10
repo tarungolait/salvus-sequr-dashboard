@@ -1,29 +1,32 @@
 import requests
 
-# Define the Flask API endpoint
-API_ENDPOINT = 'http://localhost:5000/userdetail'
+# Define the base URL of the Flask app
+BASE_URL = 'http://127.0.0.1:5000'
 
-# Sample JSON request data
-sample_data = {
-    "Name": "John",
-    "Lastname": "Doe",
-    "Email": "john.doe@example.com",
-    "phone": "1234567890",
-    "device_id": "123456789",
-    "barcodeno": "987654321",
-    "Product": "ExampleProduct"
-}
+# Test the /decrypt endpoint
+def test_decrypt_endpoint():
+    url = BASE_URL + '/decrypt'
+    encrypted_data = "b3LkhZQcQkwVleSEUM1VNg+kEGT0d/+5X3h0f04Gem8HY4k0DJfwqRYx+QJ6DSqfS1wWTuMCPwSl3kujYUdFgA=="  # Replace with actual encrypted data
+    response = requests.post(url, json={'encrypted_data': encrypted_data})
+    print("Decrypt Endpoint Response:")
+    print(response.json())
 
-# Send POST request to the API endpoint with the sample data
-response = requests.post(API_ENDPOINT, json=sample_data)
+# Test the /insert_data endpoint
+def test_insert_data_endpoint():
+    url = BASE_URL + '/insert_data'
+    data = {
+        'device_id': '123',
+        'barcodeno': '6265101617',
+        'qrcode': '8827',
+        'name': 'Johny',
+        'last_name': 'Doee',
+        'phone': '12345678940',
+        'email': 'johen.doe@example.com'
+    }
+    response = requests.post(url, json=data)
+    print("Insert Data Endpoint Response:")
+    print(response.json())
 
-# Check if the request was successful
-if response.status_code == 200:
-    # Extract passkey from the response JSON
-    passkey = response.json().get('passkey')
-    if passkey:
-        print("Generated Passkey:", passkey)
-    else:
-        print("Passkey not found in response JSON.")
-else:
-    print("Failed to send request. Status Code:", response.status_code)
+if __name__ == '__main__':
+    test_decrypt_endpoint()
+    test_insert_data_endpoint()
