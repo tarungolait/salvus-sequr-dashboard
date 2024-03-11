@@ -16,12 +16,12 @@ def test_insert_data_endpoint():
     url = BASE_URL + '/insert_data'
     data = {
         'device_id': '123',
-        'barcodeno': '6265101617',
-        'qrcode': '8827',
-        'name': 'Johny',
-        'last_name': 'Doee',
-        'phone': '12345678940',
-        'email': 'johen.doe@example.com'
+    'barcodeno': '1234567890',
+    'qrcode': '1357',
+    'name': 'Bob',
+    'last_name': 'Johnson',
+    'phone': '1234567890',
+    'email': 'bob.johnson@example.com'
     }
     response = requests.post(url, json=data)
     print("Insert Data Endpoint Response:")
