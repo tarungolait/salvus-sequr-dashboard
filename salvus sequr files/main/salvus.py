@@ -133,6 +133,17 @@ def insert_data():
         # Generate a 7-character long passkey
         passkey = ''.join(random.sample(combined_fields, 7))
 
+        # Update infinicue_master_table with corresponding data
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE infinicue_master_table 
+            SET name = %s, lastname = %s, passkey = %s, email = %s, device_id = %s, device_token = %s 
+            WHERE barcodeno = %s
+            """,
+            (data['name'], data['last_name'], passkey, data['email'], data['device_id'], data['device_id'], data['barcodeno']))
+        connection.commit()
+        cursor.close()
+
         return jsonify({'passkey': passkey}), 200
 
     except Exception as e:

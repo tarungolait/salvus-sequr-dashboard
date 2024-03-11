@@ -15,14 +15,15 @@ def test_decrypt_endpoint():
 def test_insert_data_endpoint():
     url = BASE_URL + '/insert_data'
     data = {
-        'device_id': '123',
-    'barcodeno': '1234567890',
-    'qrcode': '1357',
-    'name': 'Bob',
-    'last_name': 'Johnson',
-    'phone': '1234567890',
-    'email': 'bob.johnson@example.com'
-    }
+    "device_id": "123",
+    "barcodeno": "890201700006",
+    "qrcode": "1357",
+    "name": "Bob",
+    "last_name": "Johnson",
+    "phone": "1234567890",
+    "email": "bob.johnson@example.com"
+}
+
     response = requests.post(url, json=data)
     print("Insert Data Endpoint Response:")
     print(response.json())
